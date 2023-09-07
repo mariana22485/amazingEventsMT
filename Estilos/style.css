@@ -34,9 +34,10 @@ main {
 .custom-button-bg {
   background: #00d7ff !important;
   color: white !important;
-  border-radius: 20px;
+  border-radius: 15px;
   justify-content: center;
   padding: 2px;
+  margin: 2;
 }
 
 .custom-navbar-spacing .nav-link {
@@ -115,3 +116,13 @@ footer {
     justify-content: space-between;
     align-items: flex-end;
 }
+
+
+.filterCheck{
+  display: flex; 
+  align-items: center; 
+  flex-direction: row;
+  gap: 0;
+
+}
+
