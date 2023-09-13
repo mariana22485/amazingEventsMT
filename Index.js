@@ -1,5 +1,6 @@
 let containerCard = document.querySelector(".contenedorCard");
 
+
 function createCard(events) {
     return `<div class="card" style="width: 18rem;">
     <img src="${events.image}" class="card-img-top custom-img" alt="imagen">
@@ -19,19 +20,12 @@ function createCard(events) {
 
 function createAllEvents(arrayCards) {
       
-    console.log(arrayCards)
-    
-    if(arrayCards.length == 0){
-        containerCard.innerHTML = `<h2>No se encontraron elementos</>`
-        return
-    }
     let cardsEvent = ""
     for (events of arrayCards) {
         cardsEvent += createCard(events)
     }
     return cardsEvent
 }
-containerCard.innerHTML = createAllEvents(data.events)
 
 
 const inputTexto = document.querySelector('#texto')   
@@ -41,7 +35,7 @@ inputTexto.addEventListener('input', () => {
     if (arregloFiltrarPorCategoria.length == 0){
         containerCard.innerHTML="No hay resultados para la busqueda"
     }else{
-        containerCard.innerHTML = createPastEvents(arregloFiltrarPorCategoria, data.currentDate)
+        containerCard.innerHTML = createAllEvents(arregloFiltrarPorCategoria)
     }
    
 })
@@ -59,7 +53,7 @@ function filtrarEventos(arregloDeEventos, texto) {
 
 //Creamos los checkbox//
 
-let categorias = extraerCategoria(data.events)
+
 let checkCategorias=document.querySelector(".listaDeFiltros")
 
 
@@ -80,7 +74,6 @@ function visualizarSwitch(arregloCategoria, contenedor) {
     }) 
        contenedor.innerHTML = html
       }
-visualizarSwitch(extraerCategoria(data.events), checkCategorias)
 
 
 function extraerCategoria(arreglo) {
@@ -101,10 +94,17 @@ return arrayFiltrado
 
 //funcion que genera las tarjetas para cada uno de los eventos de un 
 function refrescarContenido(){
-
 containerCard.innerHTML=createAllEvents(filtrarPorCategoria(data.events))
-
 }
 
 checkCategorias.addEventListener("change",refrescarContenido)
 
+let data
+traerEventos().then((info)=>{
+   data=info;
+   containerCard.innerHTML = createAllEvents(data.events)
+   let categorias = extraerCategoria(data.events)
+   visualizarSwitch(extraerCategoria(data.events), checkCategorias)
+
+
+})

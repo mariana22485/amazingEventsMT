@@ -1,3 +1,16 @@
+let urlApi = 'https://mindhub-xj03.onrender.com/api/amazing'
+
+
+async function traerEventos() {
+    try {
+        let response = await fetch(urlApi);
+        let evento = await response.json();
+        return evento
+    }
+    catch (error) {
+        console.log("Error")
+    }
+}
 
 let containerCard = document.querySelector(".contenedorCard");
 
@@ -29,10 +42,8 @@ function createPastEvents(arrayCards,fechaHoy) {
 }
 
 
-containerCard.innerHTML = createPastEvents(data.events, data.currentDate)
 
 
-/////////////////////////
 
 
 const inputTexto = document.querySelector('#texto')   
@@ -62,7 +73,7 @@ function filtrarEventos(arregloDeEventos, texto) {
 
 //Creamos los checkbox//
 
-let categorias = extraerCategoria(data.events)
+
 let checkCategorias=document.querySelector(".listaDeFiltros")
 
 
@@ -84,7 +95,6 @@ function visualizarSwitch(arregloCategoria, contenedor) {
        contenedor.innerHTML = html
     
 }
-visualizarSwitch(extraerCategoria(data.events), checkCategorias)
 
 
 function extraerCategoria(arreglo) {
@@ -112,3 +122,10 @@ function refrescarContenido(){
 checkCategorias.addEventListener("change",refrescarContenido)
 
 
+let data
+traerEventos().then((info)=>{
+   data=info;
+   containerCard.innerHTML = createPastEvents(data.events, data.currentDate);
+   let categorias = extraerCategoria(data.events);
+   visualizarSwitch(extraerCategoria(data.events), checkCategorias)
+   })

@@ -126,3 +126,13 @@ footer {
 
 }
 
+.table-cell {
+  font-weight: bold;     
+  text-align: center;    
+  background-color: #f2f2f2; 
+  border: 1px solid #ddd; 
+}
+
+.bg-custom {
+  background-color: #3c543e;
+}
